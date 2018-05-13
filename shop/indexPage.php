@@ -75,7 +75,7 @@
 
 
 
-	<div id="fh5co-testimonial" class="fh5co-bg-section">
+<!--	<div id="fh5co-testimonial" class="fh5co-bg-section">
 		<div class="container">
 			<div class="row animate-box">
 				<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -138,7 +138,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<footer id="fh5co-footer" role="contentinfo">
 		<div class="container">

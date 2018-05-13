@@ -17,6 +17,7 @@
 
      function getConn(){
         $db = mysqli_connect("localhost","root","","shop") or die ("Connection failed: " . mysqli_connect_error()); 
+		mysqli_set_charset($db, "utf8");
         return $db;
      }
 

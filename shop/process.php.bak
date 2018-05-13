@@ -180,8 +180,8 @@
 						}
 						else {
 							$sql = "INSERT INTO `cart`
-							(`p_id`, `ip`, `user`) 
-							VALUES ('$p_id','$ip','$user_id')";
+							(`p_id`, `ip`, `user`, `qty`) 
+							VALUES ('$p_id','$ip','$user_id','1')";
 							if(mysqli_query($connect->getConn(),$sql)){
 								echo "";
 							}
@@ -284,7 +284,7 @@
 				}
 
 				if(isset($_POST["getCart"])){
-					$sql = "SELECT a.id,a.name,a.price,a.image,a.description,b.p_id  FROM product a,cart b WHERE a.id=b.p_id 
+					$sql = "SELECT a.id,a.name,a.price,a.image,a.description,b.p_id,b.qty FROM product a,cart b WHERE a.id=b.p_id 
 					AND b.user='$_SESSION[u_email]'";
 					$result = mysqli_query($connect->getConn(),$sql);
 					$_SESSION['cId'] = array();
@@ -292,6 +292,7 @@
 					$_SESSION['cPrice'] = array();
 					$_SESSION['cImage'] = array();
 					$_SESSION['cDes'] = array();
+					$_SESSION['count']="0";
 					if(mysqli_num_rows($result) > 0){
 
 						while($row = mysqli_fetch_array($result)){
@@ -301,12 +302,20 @@
 							array_push($_SESSION['cPrice'],$row['price']);
 							array_push($_SESSION['cImage'],$row['image']);
 							array_push($_SESSION['cDes'],$row['description']);
+							$_SESSION['count']++;
+
+							echo '<div class="product-removal">
+									<button class="remove-product" id="remove" remove_id="'.$_SESSION['cId']{$i}.'">
+										Remove
+									</button>
+								</div>';
 						}
 					}
 				}
 
 				if (isset($_POST["removeItemFromCart"])) {
 					$remove_id = $_POST["rid"];
+					echo '<script>alert("'.$remove_id.'");</script>';
 					$sql = "DELETE FROM cart WHERE p_id = '$remove_id' AND user = '$_SESSION[u_email]'";
 			
 					if(mysqli_query($connect->getConn(),$sql)){
@@ -319,7 +328,7 @@
 				if (isset($_POST["removeItemFromLike"])) {
 					$remove_id = $_POST["rid"];
 					echo '<script>alert("'.$remove_id.'");</script>';
-					$sql = "DELETE FROM wishlist WHERE wish_id = '$remove_id' AND wish_user = '$_SESSION[u_email]'";
+					$sql = "DELETE FROM wishlist WHERE wish_id = '$remove_id' AND user = '$_SESSION[u_email]'";
 			
 					if(mysqli_query($connect->getConn(),$sql)){
 						echo "<script>
@@ -380,12 +389,6 @@
 					}
 				}
 				
-				if(isset($_POST['checkout'])){
-					$p = $_POST['tp'];
-					echo "<script>
-							   window.location.href='http://localhost/shop/payment.php?totalprice=".+ $p."';
-						</script>";
-				}
 				
 
 				

@@ -26,6 +26,7 @@
 							method  : "POST",
 							data  : {removeItemFromLike:1,rid:remove_id},
 							success : function(data){
+								alert(remove_id);
 								$(".like").html(data);
 							}
 						  })

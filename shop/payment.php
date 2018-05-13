@@ -1,8 +1,16 @@
-﻿
+﻿<?php
+	include_once 'paymentControl.php';
+	$pay = new paymentControl();
+	$pay->setInfo();
+	$email = $_SESSION["u_email"];
+	$totalprice = $_GET['totalprice'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Login V17</title>
+	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -28,58 +36,66 @@
     <link rel="stylesheet" type="text/css" href="css/main1_payment.css">
     <!--===============================================================================================-->
 </head>
+
 <body>
 
     <div class="limiter">
         <div class="container-login100">
             
-                <form class="login100-form validate-form">
+			<form method="post" action="payment.php?totalprice=<?php echo $totalprice; ?>" class="login100-form validate-form">
+		
                     <span class="login100-form-title p-b-34">
-                        รายละเอียดจัดส่ง
+							รายละเอียดจัดส่ง
                     </span>
-
+					<input type="hidden" name="grandtotal" value="<?php echo $totalprice; ?>">
                     <div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
-                        <input id="first-name" class="input100" type="text" name="mail" placeholder="firstname">
+                        <input id="first-name" class="input100" type="text" name="fName" placeholder="firstname">
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type lastname">
-                        <input class="input100" type="lastname" name="pass" placeholder="lastname">
+                        <input id="last-name" class="input100" type="text" name="lName" placeholder="lastname">
                         <span class="focus-input100"></span>
                     </div>
 					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type telephone">
-                        <input class="input100" type="telephone" name="pass" placeholder="telephone">
+                        <input id="tel" class="input100" type="text" name="tel" placeholder="telephone">
                         <span class="focus-input100"></span>
                     </div>
 					<div class="wrap-input100 rs3-wrap-input100 validate-input m-b-20" data-validate="Type address">
-                        <input class="input100" type="address" name="pass" placeholder="address">
+                        <input id="ad" class="input100" type="text" name="address" placeholder="address">
                         <span class="focus-input100"></span>
                     </div>
 					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type province">
-                        <input class="input100" type="province" name="pass" placeholder="province">
+                        <input id="prov" class="input100" type="text" name="prov" placeholder="province">
                         <span class="focus-input100"></span>
                     </div>
 					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type Zip code">
-                        <input class="input100" type="Zip code" name="pass" placeholder="Zip code">
+                        <input id="zip" class="input100" type="text" name="zip" placeholder="Zip code">
                         <span class="focus-input100"></span>
                     </div>
 					<div class="wrap-input100 rs3-wrap-input100 validate-input m-b-20" data-validate="Type note">
-                        <input class="input100" type="note" name="pass" placeholder="note">
+                        <input id="note" class="input100" type="text" name="note" placeholder="note">
                         <span class="focus-input100"></span>
                     </div>
-
-                    <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" >CREDIT</button>
-                    </div>
 					
-					<div class="container-login100-form-btn"> 
-                        <button class="login100-form-btn">โอนเงิน</button>
-                    </div>
-					
-					
-
-                  
-                </form>
-
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" name="set" id="save">SAVE</button>
+					</div>
+						
+			</form>
+			
+			<form method="post" action="https://www.thaiepay.com/epaylink/payment.aspx" class="login100-form validate-form">
+					<div class="container-login100-form-btn">
+						<input type="hidden" name="refno" value="99999">
+						<input type="hidden" name="merchantid" value="00000500">
+						<input type="hidden" name="customeremail" value="<?php echo $email; ?>"> 
+						<input type="hidden" name="productdetail" value="Testing Product">
+						<input type="hidden" name="cc" value="00">
+						<input type="hidden" name="returnurl" value="http://localhost/shop/indexPage.php">
+						<input type="hidden" name="total" value="<?php echo $totalprice; ?>">
+						<button type="hidden" class="login100-form-btn" name="yes" id="credit">PAYMENT</button>
+					</div>
+			</form>
+			
         </div>
     </div>
 

@@ -209,7 +209,7 @@ body {
   margin: 20px auto;
   border-radius: 10px;
   border: none;
-  background: #42C2DF;
+  background: #00ad5f;
   color: white;
   font-size: 20px;
   transition: background 0.4s;
@@ -219,7 +219,7 @@ body {
   font-size: 20px;
 }
 .container .col2 .buy:hover {
-  background: #3594A9;
+  background: #333333;
   transition: background 0.4s;
 }
 

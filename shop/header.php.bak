@@ -226,12 +226,10 @@
 		<div class="row">
 			<div class="col-md-3 col-xs-2">
 				<?php if(isset($_SESSION['u_email'])){
-					
-						echo '<form action="indexPage.php" method="POST">
-						<a href="account.php?'. $_SESSION["u_first"] .'">Welcome, '. $_SESSION["u_first"] .'</a>
-						<a href="logout.php" style="color:#DC143C">Logout</a>
-						</form>';
-					
+					echo '<form action="indexPage.php" method="POST">
+					<a href="account.php?'. $_SESSION["u_first"] .'">Welcome, '. $_SESSION["u_first"] .'</a>
+					<a href="logout.php" style="color:#DC143C">Logout</a>
+					</form>';
 				}else{
 					echo '<li><a href="login.php">Login/Sign Up</a></li>';
 				}
@@ -262,7 +260,7 @@
 					</li>
 					<?php if(isset($_SESSION['u_email'])){
 						echo '<li class="shopping-cart">
-								<a href="cart.php" class="cart" target="_blank"><span><small id="in">0</small><i class="icon-shopping-cart">
+								<a href="checkout.php" class="cart" target="_blank"><span><small id="in">0</small><i class="icon-shopping-cart">
 							</i></span></a></li>';
 					}else{
 						echo '<li class="shopping-cart"><a href="login.php" class="cart"><span><small id="in">0</small><i class="icon-shopping-cart"></i></span></a></li>';
