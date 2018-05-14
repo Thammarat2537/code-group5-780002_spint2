@@ -1,4 +1,4 @@
-<?php include 'orderconfirm.php';
+<?php include 'ordercontrol.php';
 	
 	$ordersql = "SELECT * FROM info WHERE user='$_SESSION[u_email]'";
 	$oresult = mysqli_query($con->getConn(),$ordersql);
@@ -181,7 +181,7 @@ div.container1 {
 		</tr>
 		</table>
 		<br></br>
-			<button type="submit" name="setOrder">Save This Order!</button>
+			<div><center><button type="submit" name="setOrder">Save This Order!</button></center></div>
 		</form>
 	
 	

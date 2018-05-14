@@ -1,4 +1,4 @@
-<?php include_once'header.php'; ?>
+<?php include_once'header.php';?>
 
 <!DOCTYPE HTML>
 <html>
@@ -110,38 +110,64 @@
 	<col width="150">
     <tr>
       <th></th>
-      <th>STATUS</th>
-      <th>NOTE</th>
+      <th>Order</th>
+      <th>Receipt</th>
     </tr>
     <tr>
-      <td></td>
-      <td>Waiting for payment<div>__/__/____<div></td>
-      <td></td>
+	
+    <td></td>
+    <td><?php
+			if(isset($_SESSION['u_email'])){
+				$sql = "SELECT * FROM orderdetail WHERE user = '$_SESSION[u_email]'";
+				$result = mysqli_query($connect->getConn(),$sql);
+				$order_id = array();
+				$total  = array();
+				$i = 0;
+				if(mysqli_num_rows($result) > 0){
+					while($row = mysqli_fetch_array($result)){
+						$order_id[] = $row['orderID'];
+						$total[] = $row['grandtotal'];
+						echo '<a href="order_confirm.php">OrderNo: '.$order_id{$i}.' Total: '.$total{$i}.'</a><br>';
+						$i++;
+					}
+					echo '<div><p id="demo"></p></div>';
+				}
+				else{
+					
+				}
+			}
+			
+		?></td>
+    <td><?php
+			if(isset($_SESSION['u_email'])){
+				$sql = "SELECT * FROM receipt WHERE user = '$_SESSION[u_email]'";
+				$result = mysqli_query($connect->getConn(),$sql);
+				$rID = array();
+				$total  = array();
+				$i = 0;
+				if(mysqli_num_rows($result) > 0){
+					while($row = mysqli_fetch_array($result)){
+						$rID[] = $row['rID'];
+						$total[] = $row['grandtotal'];
+						echo '<a href="bill.php">OrderNo: '.$rID{$i}.' Total: '.$total{$i}.'</a><br>';
+						$i++;
+					}
+					echo '<div><p id="demo2"></p></div>';
+				}
+				else{
+					
+				}
+			}
+			
+		?></td>
     </tr>
-    <tr>
-      <td></td>
-      <td>Payment Verification<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>transport<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-	<tr>
-      <td></td>
-      <td>Delivered successfully<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-	</div>
 	
+	<script>
+		var d = new Date();
+		document.getElementById("demo").innerHTML = d.toDateString();
+		document.getElementById("demo2").innerHTML = d.toDateString();
+	</script>	
 	
-	
-	
-	
-
-	
-
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>

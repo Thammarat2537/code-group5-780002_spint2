@@ -1,5 +1,6 @@
-<?php include 'orderconfirm.php';
+<?php include 'ordercontrol.php';
 	
+	$rID = 0;
 	$ordersql = "SELECT * FROM info WHERE user='$_SESSION[u_email]'";
 	$oresult = mysqli_query($con->getConn(),$ordersql);
 	while($row = mysqli_fetch_array($oresult)){
@@ -12,6 +13,32 @@
 		$_SESSION['email'] = $row['user'];
 		$_SESSION['order_id'] = $row['order_id'];
 	}
+			
+		if(isset($_POST['receipt'])){
+			$rID++;
+			$email = $_SESSION['email'];
+			$sub = $_SESSION['sub'];
+			$total = $_SESSION['total'];
+			
+			$user = mysqli_real_escape_string($con->getConn(),$email);
+			$subtotal = mysqli_real_escape_string($con->getConn(),$sub);
+			$grandtotal = mysqli_real_escape_string($con->getConn(),$total);
+			
+			$sql = "SELECT * FROM receipt WHERE rID = '$rID'";
+			$run_query = mysqli_query($con->getConn(),$sql);
+			$count = mysqli_num_rows($run_query);
+			if($count > 0){
+				$rID++;
+				$sql = "INSERT INTO receipt (rID,user,subtotal,grandtotal) VALUES ('$rID','$user','$subtotal','$grandtotal')";
+				mysqli_query($con->getConn(),$sql);	
+				echo '<script>alert("Success");</script>'; 
+			}
+			else{
+				$sql = "INSERT INTO receipt (rID,user,subtotal,grandtotal) VALUES ('$rID','$user','$subtotal','$grandtotal')";
+				mysqli_query($con->getConn(),$sql);	
+				echo '<script>alert("Success");</script>'; 
+			}
+		}
 	
 ?>
 
@@ -108,10 +135,10 @@ div.container1 {
 
 	</head>
 
-	<body>
-		
+	<body>		
 	<div class="fh5co-loader"></div>
 	
+<form method="POST" action = "bill.php">
 	<div id="page">
 	<nav class="fh5co-nav" role="navigation">
 		<div class="container">
@@ -191,14 +218,15 @@ div.container1 {
 		<div class="box"><center>Snoop Dog</center><br /><center>Collector</center><br /><center>Date<p id="demo"></p></center><br /></div>
 		<div class="box"><center>J.Cole</center><br /><center>Authorized by</center><br /><center>Date<p id="demo2"></p></center><br /></div>
 		<div style="clear:both;"></div>
-	</div>
-	<a><br /></a>
-	<a><br /></a>
-	<div><center><a>Thank You</a></center></div>
+		</div>
+		<a><br /></a>
+		<a><br /></a>
+	<div><center><button type="submit" name="receipt">Save Receipt</button></center></div>
+</form>
 	<script>
 		var d = new Date();
-		document.getElementById("demo").innerHTML = d;
-		document.getElementById("demo2").innerHTML = d;
+		document.getElementById("demo").innerHTML = d.toDateString();
+		document.getElementById("demo2").innerHTML = d.toDateString();
 	</script>
 	
 	<!-- jQuery -->
@@ -221,5 +249,6 @@ div.container1 {
 
 
 	</body>
+	
 </html>
 
