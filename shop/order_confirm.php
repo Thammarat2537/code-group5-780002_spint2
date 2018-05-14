@@ -1,3 +1,20 @@
+<?php include 'orderconfirm.php';
+	
+	$ordersql = "SELECT * FROM info WHERE user='$_SESSION[u_email]'";
+	$oresult = mysqli_query($con->getConn(),$ordersql);
+	while($row = mysqli_fetch_array($oresult)){
+		$_SESSION['total'] = $row['total'];
+		$_SESSION['vat'] = $row['vat'];
+		$_SESSION['sub'] = $row['sub'];
+		$name = $row['fName'];
+		$address = $row['address'];
+		$tel = $row['tel'];
+		$_SESSION['email'] = $row['user'];
+		$_SESSION['order_id'] = $row['order_id'];
+	}
+	
+?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -8,7 +25,10 @@
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
 	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 	<meta name="author" content="gettemplates.co" />
-	<META HTTP-EQUIV="Content-Type"CONTENT="text/html; charset=utf-8">
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	<link rel="stylesheet" href="css/style_bill.css">
 
 	<!-- 
 	//////////////////////////////////////////////////////
@@ -61,18 +81,32 @@
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
-	<style type="text/css">
-	.centerDiv
-	{
-		width: 60%;
-		height:100px;
-		margin: 0 auto;
-		
-	}
-	</style>
+	<style>
+p.ex1 {
+    padding: 0px 0px 0px 0px;
+}
+p.ex2 {
+    border: 1px solid gray; 
+    margin: 0px 0px 0px 650px;	
+}
+p.ex3 {
+    border: 1px solid gray; 
+    margin: 0px 100px 0px 100px;	
+}
+div.box {
+    box-sizing: border-box;
+    width: 50%;
+    border: 1px solid black;
+    float: left;
+}
+div.container1 {
+    width: 100%;
+    border: 2px solid ;
+}
+</style>
 
 	</head>
+
 	<body>
 		
 	<div class="fh5co-loader"></div>
@@ -80,109 +114,77 @@
 	<div id="page">
 	<nav class="fh5co-nav" role="navigation">
 		<div class="container">
-		<div id="fh5co-logo"><center><a href="index.html">ARIS - STORE</a></center></div>
-			<div class="row">
-				
-				<div class="col-md-3 col-xs-2">
-					
-				</div>
-				<div class="col-md-6 col-xs-6 text-center menu-1">
-					<ul>
-						<li><a href="tops&shirts.html">Tops & Shirts</a></li>
-						<li><a href="skirts.html">Skirts</a></li>
-						<li><a href="dress.html">DRESS</a></li>
-						<li><a href="pants&shorts.html">pants & shorts</a></li>
-						<li class="active"><a href="myorder.html">my order</a></li>
-					</ul>
-				</div>
-				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-					<ul>
-						<li class="search">
-							<div class="input-group">
-						      <input type="text" placeholder="Search..">
-						      <span class="input-group-btn">
-						        <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
-						      </span>
-						    </div>
-						</li>
-						<li class="shopping-cart"><a href="myorder.html" class="cart"><span><small>0</small><i class="icon-shopping-cart"></i></span></a></li>
-					</ul>
-				</div>
-			</div>
-			
+		<div id="fh5co-logo"><center><a href="indexPage.php">ARIS - STORE</a></center></div>
+		<div id="fh5co-logo">
+			<p class="ex1">Purchase order</p>
+			<p class="ex1">NO.<?php echo $_SESSION['order_id']; ?></p>
 		</div>
-	</nav>
-
-	<!--<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url(images/images_bg1.jpg);">
-		<div class="overlay"></div>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<div class="display-t">
-						<div class="display-tc animate-box" data-animate-effect="fadeIn">
-							<h1>My Order</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>-->
-
-	<div class="centerDiv">
-	<a>Order code</a>
-	<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Enter Your Order code">
-		<input id="Order code" class="input100" type="text" name="Order code" placeholder="Order code">
-		<span class="focus-input100"></span><button class="login100-form-btn">ok</button>
-	</div>
-	</div>
-
 	
-		
+        
+		<p class="ex2" align = 'left'>Name: <?php echo $name; ?><br />Address: <?php echo $address; ?><br />Tel: <?php echo $tel; ?><br />Email: <?php echo $_SESSION['email']; ?><br /> </p>
+     </div>
+	 </nav>
 
+	<form action="order_confirm.php" method ="POST">
 	<table class="wp-table">
-	<col width="10">
-	<col width="200">
-	<col width="150">
-    <tr>
-      <th></th>
-      <th>STATUS</th>
-      <th>NOTE</th>
-    </tr>
-    <tr>
-      <td></td>
-      <td>Waiting for payment<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>Payment Verification<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td>transport<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-	<tr>
-      <td></td>
-      <td>Delivered successfully<div>__/__/____<div></td>
-      <td></td>
-    </tr>
-				
-	</div>
+		<tr>
+		  <th>ProductID</th>
+		  <th>Produce Name</th>
+		  <th>Produce Category</th>
+		  <th>Unit price</th>
+		  <th>Total</th>
+		</tr>
+		<?php
+			$pro_id="";
+			$pro_name ="";
+			$pro_price ="";
+			$pro_cate ="";
+			$sql = "SELECT a.id,a.name,a.price,a.category,b.p_id  FROM product a,cart b WHERE a.id=b.p_id AND b.user='$_SESSION[u_email]'";
+			$result = mysqli_query($con->getConn(),$sql);
+							if(mysqli_num_rows($result) > 0){
+								while($row = mysqli_fetch_array($result)){
+									$pro_id = $row['id'];
+									$pro_name = $row['name'];
+									$pro_price = $row['price'];
+									$pro_cate = $row['category'];
+									echo'<tr>
+											<td>'.$pro_id.'</td>
+											<td>'.$pro_name.'</td>
+											<td>'.$pro_cate.'</td>
+											<td>'.$pro_price.'</td>
+											<td>test</td>
+										</tr>';
+								}
+							}
+		?>
+		
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		  <td>Sub Total</td>
+		  <td><?php echo $_SESSION['sub']; ?></td>
+		</tr>
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		  <td>VAT 5%</td>
+		  <td><?php echo $_SESSION['vat']; ?></td>
+		  <tr>
+		  <td></td>
+		  <td></td>
+		  <td></td>
+		  <td>Grandtotal</td>
+		  <td><?php echo $_SESSION['total']; ?></td>
+		</tr>
+		</tr>
+		</table>
+		<br></br>
+			<button type="submit" name="setOrder">Save This Order!</button>
+		</form>
 	
 	
-	
-	
-	
-
-	
-
-	<div class="gototop js-top">
-		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-	</div>
-
-
 	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
@@ -199,7 +201,8 @@
 	<!-- Flexslider -->
 	<script src="js/jquery.flexslider-min.js"></script>
 	<!-- Main -->
-	<script src="js/main.js"></script>
+	<script src="js/main_bill.js"></script>
+
 
 
 	</body>

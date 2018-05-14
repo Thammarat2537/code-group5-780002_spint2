@@ -44,10 +44,12 @@
 	
 	$("body").delegate(".checkout","click",function(event){
 		var x = document.getElementById("cart-total").textContent;
+		var y = document.getElementById("cart-tax").textContent;
+		var z = document.getElementById("cart-subtotal").textContent;
 		$.ajax({
 			url : "process.php",
 			method  : "POST",
-			data  : {checkout:1,tp:x},
+			data  : {checkout:1,tp:x,v:y,s:z},
 			success : function(data){
 				$(".totals").html(data);
 			}

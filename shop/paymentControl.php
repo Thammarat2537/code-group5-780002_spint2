@@ -18,6 +18,8 @@
 			$user_id = "";
 			$order_id = "";
 			$grandprice = "";
+			$sub = "";
+			$vat = "";
 			
 			if(isset($_POST['set'])){
 			
@@ -30,7 +32,8 @@
 				$note = $_POST['note'];
 				$user_id = $_SESSION["u_email"];
 				$price = $_POST['grandtotal'];
-				$order_id = 00000;
+				$sub = $_POST['getsub'];
+				$vat = $_POST['gettax'];
 				
 				$firstname = mysqli_real_escape_string($con->getConn(),$fName);
 				$lastname = mysqli_real_escape_string($con->getConn(),$lName);
@@ -40,13 +43,28 @@
 				$zip = mysqli_real_escape_string($con->getConn(),$zip);
 				$note = mysqli_real_escape_string($con->getConn(),$note);
 				$user = mysqli_real_escape_string($con->getConn(),$user_id);
+				$order_id++;
 				
-				$sql =  "INSERT INTO info (user,fName,lName,tel,address,province,zipcode,note) VALUES ('$user','$firstname','$lastname','$telNo','$addr','$provi','$zip','$note')";
+				$sql = "SELECT * FROM info WHERE order_id = '$order_id'";
+				$run_query = mysqli_query($con->getConn(),$sql);
+				$count = mysqli_num_rows($run_query);
+				if($count > 0){
+					while($row = mysqli_fetch_assoc($run_query)){	
+						$order_id = $row['order_id'];
+					}
+						$order_id++;					
+						$sql = "INSERT INTO info (user,fName,lName,tel,address,province,zipcode,note,order_id,total,vat,sub) VALUES ('$user','$firstname','$lastname','$telNo','$addr','$provi','$zip','$note','$order_id','$price','$vat','$sub')";
+						mysqli_query($con->getConn(),$sql);
+						
+				}
+				else{
+					
+					$sql = "INSERT INTO info (user,fName,lName,tel,address,province,zipcode,note,order_id,total,vat,sub) VALUES ('$user','$firstname','$lastname','$telNo','$addr','$provi','$zip','$note','$order_id','$price','$vat','$sub')";
+					mysqli_query($con->getConn(),$sql);	
+				}
 				
-				mysqli_query($con->getConn(),$sql);
-				
-				echo '<script>alert("Info Save Succesful");
-						window.open("http://localhost/shop/indexPage.php", "_blank");
+				echo '<script>alert("Success");
+						window.open("http://localhost/shop/order_confirm.php?", "_blank");
 					</script>';
 			}
 		}

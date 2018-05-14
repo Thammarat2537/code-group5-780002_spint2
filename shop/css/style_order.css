@@ -4,7 +4,6 @@
   src: url("../fonts/icomoon/icomoon.eot?srf3rx#iefix") format("embedded-opentype"), url("../fonts/icomoon/icomoon.ttf?srf3rx") format("truetype"), url("../fonts/icomoon/icomoon.woff?srf3rx") format("woff"), url("../fonts/icomoon/icomoon.svg?srf3rx#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
-  font-family: 'Designil Font', 'Helvetica', sans-serif;
 }
 /* =======================================================
 *
@@ -46,46 +45,6 @@ body {
 }
 
 /* ======================================================= */
-.wp-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-
-.wp-table tr:nth-child(even) {
-    background-color: #f1f1f1;
-}
-
-.wp-table tr {
-    border-bottom: 1px solid #ddd;
-}
-
-.wp-table th:first-child{
-	padding-left: 16px;
-}
-.wp-table td:first-child {
-    padding-left: 16px;
-}
-
-
-.wp-table td, 
-.wp-table th {
-    padding: 8px 8px;
-    display: table-cell;
-    text-align: left;
-    vertical-align: top;
-}
-
-.wp-table th {
-    font-weight: bold;
-}
- 
-.wp-table {
-    font-size: 13px!important;
-    border: 2px solid #ccc;
-    border-collapse: collapse;
-    border-spacing: 0;
-    width: 100%;
-    display: table;
-}
 /* ======================================================= */
 .container .col2 .buy {
   width: 260px;

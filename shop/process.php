@@ -182,9 +182,7 @@
 							$sql = "INSERT INTO `cart`
 							(`p_id`, `ip`, `user`) 
 							VALUES ('$p_id','$ip','$user_id')";
-							if(mysqli_query($connect->getConn(),$sql)){
-								echo "";
-							}
+							mysqli_query($connect->getConn(),$sql);
 						}
 					}
 					else{
@@ -318,7 +316,6 @@
 				}
 				if (isset($_POST["removeItemFromLike"])) {
 					$remove_id = $_POST["rid"];
-					echo '<script>alert("'.$remove_id.'");</script>';
 					$sql = "DELETE FROM wishlist WHERE wish_id = '$remove_id' AND wish_user = '$_SESSION[u_email]'";
 			
 					if(mysqli_query($connect->getConn(),$sql)){
@@ -382,8 +379,10 @@
 				
 				if(isset($_POST['checkout'])){
 					$p = $_POST['tp'];
+					$v = $_POST['v'];
+					$s = $_POST['s'];
 					echo "<script>
-							   window.location.href='http://localhost/shop/payment.php?totalprice=".+ $p."';
+							   window.location.href='http://localhost/shop/payment.php?totalprice=".+ $p."&totalvat=".+ $v."&totalsub=".+ $s."';
 						</script>";
 				}
 				
