@@ -3,8 +3,6 @@
 				$connect = new connect();
 				$connect->start();
 				$connect->logRe();
-
-				$ip = getenv("REMOTE_ADDR");
 			
 				if(isset($_POST["randPro"])){
 					$product_query = "SELECT * FROM product ORDER BY RAND() LIMIT 0,6";
@@ -180,8 +178,8 @@
 						}
 						else {
 							$sql = "INSERT INTO `cart`
-							(`p_id`, `ip`, `user`) 
-							VALUES ('$p_id','$ip','$user_id')";
+							(`p_id`,`user`) 
+							VALUES ('$p_id','$user_id')";
 							mysqli_query($connect->getConn(),$sql);
 						}
 					}
@@ -227,7 +225,7 @@
 							echo '<script>alert("Already Liked This Product");</script>';                   
 						}
 						else {
-							$sql = "INSERT INTO wishlist (wish_id,wish_user,ip) VALUES ('$p_id','$user_id','$ip')";
+							$sql = "INSERT INTO wishlist (wish_id,wish_user) VALUES ('$p_id','$user_id')";
 							mysqli_query($connect->getConn(),$sql);
 						}
 					}
@@ -272,7 +270,7 @@
 						$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE user = '$u_email'";
 					}else{
 					
-						$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE ip = '$ip' AND user < 0";
+						$sql = "SELECT COUNT(*) AS count_item FROM cart WHERE user < 0";
 					}
 
 					$query = mysqli_query($connect->getConn(),$sql);
