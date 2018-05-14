@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2018 at 04:23 PM
+-- Generation Time: May 14, 2018 at 05:37 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -38,8 +38,9 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`p_id`, `user`) VALUES
-(12, 'admin@test.com'),
-(18, 'admin@test.com');
+(6, 'admin@test.com'),
+(15, 'admin@test.com'),
+(21, 'admin@test.com');
 
 -- --------------------------------------------------------
 
@@ -68,6 +69,7 @@ CREATE TABLE `info` (
 
 INSERT INTO `info` (`user`, `fName`, `lName`, `tel`, `address`, `province`, `zipcode`, `note`, `order_id`, `total`, `vat`, `sub`) VALUES
 ('admin@test.com', 'dsa', 'ds', 'd', 'asdsd', 'ds', 'das', 'dsa', '1', '2199', '104', '2080'),
+('admin@test.com', '', '', '', '', '', '', '', '2', '6588', '313', '6260'),
 ('t@t.t', 'dasd', 'dsad', 'ds', 'd', 's', 'dsadasd', 'd', '2', '4992', '237', '4740');
 
 -- --------------------------------------------------------
@@ -173,8 +175,18 @@ CREATE TABLE `receipt` (
 --
 
 INSERT INTO `receipt` (`rID`, `user`, `subtotal`, `grandtotal`) VALUES
-('1', 'admin@test.com', '2080', '2199'),
-('2', 't@t.t', '4740', '4992');
+('1', 'admin@test.com', '2080', '2199');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tracking`
+--
+
+CREATE TABLE `tracking` (
+  `orderID` varchar(100) NOT NULL,
+  `tracknum` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -243,6 +255,12 @@ ALTER TABLE `product`
 --
 ALTER TABLE `receipt`
   ADD PRIMARY KEY (`rID`,`user`);
+
+--
+-- Indexes for table `tracking`
+--
+ALTER TABLE `tracking`
+  ADD PRIMARY KEY (`orderID`);
 
 --
 -- Indexes for table `user`

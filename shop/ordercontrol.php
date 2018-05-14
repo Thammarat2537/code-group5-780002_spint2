@@ -27,4 +27,12 @@
 			echo '<script>alert("Success");</script>'; 
 		}
 	}
+	
+	if(isset($_POST['fff'])){
+		$_SESSION['n'] = $_POST['Name'];
+		$_SESSION['a'] = $_POST['Addresss'];
+		$_SESSION['t'] = $_POST['Tel'];
+		$_SESSION['e'] = $_POST['Email'];
+		echo '<script>window.location.href="bill.php";</script>';
+	}
 ?>

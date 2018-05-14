@@ -228,7 +228,8 @@
 				<?php if(isset($_SESSION['u_email'])){
 					If($_SESSION["u_first"] == "admin"){
 						echo '<form action="indexPage.php" method="POST">
-						<a href="additem.php?'. $_SESSION["u_first"] .'" target="_blank">Welcome, '. $_SESSION["u_first"] .'</a>
+						<a href="additem.php" target="_blank">Add Item</a>
+						<a href="addtrack.php" target="_blank">Add Track</a>
 						<a href="logout.php" style="color:#DC143C">Logout</a>
 						</form>';
 					}

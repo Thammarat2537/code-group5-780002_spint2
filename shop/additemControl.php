@@ -26,4 +26,20 @@
 			echo 'gg';
 		}
 	}
+	
+	if(isset($_POST['addtrack'])){
+		$oID = $_POST["purchase-order"];
+		$track = $_POST["track"];
+		$query = "SELECT * FROM orderdetail WHERE orderID = '$oID' ";
+		$run_query = mysqli_query($con->getConn(),$query);
+		$count = mysqli_num_rows($run_query);
+		
+		if($count <= 0){
+			echo '<script>alert("There is no order number '.$oID.'");</script>';                   
+		}
+		else {
+			$sql = "INSERT INTO tracking (orderID,tracknum) VALUES ('$oID','$track')";
+			mysqli_query($con->getConn(),$sql);
+		}
+	}
 ?>

@@ -3,20 +3,19 @@
 	$rID = 0;
 	$ordersql = "SELECT * FROM info WHERE user='$_SESSION[u_email]'";
 	$oresult = mysqli_query($con->getConn(),$ordersql);
+	$name = $_SESSION['n'];
+	$address = $_SESSION['a'];
+	$tel = $_SESSION['t'];
+	$email = $_SESSION['e'];
 	while($row = mysqli_fetch_array($oresult)){
 		$total = $row['total'];
 		$vat = $row['vat'];
 		$sub = $row['sub'];
-		$name = $row['fName'];
-		$address = $row['address'];
-		$tel = $row['tel'];
-		$_SESSION['email'] = $row['user'];
 		$_SESSION['order_id'] = $row['order_id'];
 	}
 			
 		if(isset($_POST['receipt'])){
 			$rID++;
-			$email = $_SESSION['email'];
 			$sub = $_SESSION['sub'];
 			$total = $_SESSION['total'];
 			
@@ -151,7 +150,7 @@ div.container1 {
 		<p class="ex1">Thammasat university</p>
 		<p class="ex1">777-7777777</p>
         
-		<p class="ex2" align = 'left'><a>Customer</a><br />Name: <?php echo $name; ?><br />Address: <?php echo $address; ?><br />Tel: <?php echo $tel; ?><br />Email: <?php echo $_SESSION['email']; ?><br /> </p>
+		<p class="ex2" align = 'left'><a>Customer</a><br />Name: <?php echo $name; ?><br />Address: <?php echo $address; ?><br />Tel: <?php echo $tel; ?><br />Email: <?php echo $email; ?><br /> </p>
      </div>
 	 </nav>
 	 

@@ -96,7 +96,7 @@
 						<input type="hidden" name="customeremail" value="<?php echo $email; ?>"> 
 						<input type="hidden" name="productdetail" value="Testing Product">
 						<input type="hidden" name="cc" value="00">
-						<input type="hidden" name="returnurl" value="http://localhost/shop/bill.php">
+						<input type="hidden" name="returnurl" value="http://localhost/shop/receiptdetail.php">
 						<input type="hidden" name="total" value="<?php echo $totalprice; ?>">
 						<button type="hidden" class="login100-form-btn" name="yes" id="credit">PAYMENT</button>
 					</div>
